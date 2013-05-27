@@ -1,0 +1,53 @@
+@mixin prefixed-class($class) {
+    .#{$class-prefix}-#{unquote($class)} {
+        @content;
+    }
+}
+
+@mixin flex-property($strandard-property, $value, $old-property, $ie-property)  {
+    $strandard-property: unquote($strandard-property);
+    $value: unquote($value);
+    $old-property: unquote($old-property);
+    $ie-property: unquote($ie-property);
+    @if ($old-property) {
+        // Safari, Firefox (buggy), iOS, Android browser, older WebKit browsers
+        @include experimental($old-property, $value, -moz, -webkit, not -o, not -ms, not -khtml, not official);
+    }
+    @if ($ie-property) {
+        // IE 10
+        @include experimental($ie-property, $value, not -moz, not -webkit, not -o, -ms, not -khtml, not official);
+    }
+    // Chrome 21+, Opera 12.1, Firefox 22+
+    @include experimental($strandard-property, $value, not -moz, -webkit, not -o, not -ms, not -khtml, official);
+}
+
+@mixin flex-box() {
+    @include experimental-value(display, box, -moz, -webkit, not -o, not -ms, not -khtml, not official);
+    @include experimental-value(display, flexbox, not -moz, not -webkit, not -o, -ms, not -khtml, not official);
+    @include experimental-value(display, flex, not -moz, -webkit, not -o, not -ms, not -khtml, official);
+}
+
+@mixin flex() {
+    @include flex-box();
+    //-webkit-flex-wrap: nowrap;
+}
+
+@mixin flex-centered-y() {
+    @include flex-property(justify-content, center, box-pack, flex-pack);
+}
+
+@mixin flex-column() {
+    @include flex-property(flex-direction, column, box-orient, flex-direction);
+}
+
+@mixin flex-row() {
+    @include flex-property(flex-direction, row, box-orient, flex-direction);
+}
+
+@mixin flex-centered-x() {
+    @include flex-property(align-items, center, box-align, flex-align);
+}
+
+@mixin full-width() {
+    @include flex-property(flex, 1 1, box-flex, flex);
+}

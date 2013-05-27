@@ -1,0 +1,20 @@
+@import "compass/css3/user-interface";
+
+%button {
+    @include box-sizing('border-box');
+    @include user-select('none'); //disables text selection
+    -webkit-touch-callout: none; //disables callout on iOS devices that displays information about the link
+    background-clip: padding-box;
+    border: 0;
+    border-radius: 0.2em;
+    cursor: pointer;
+    display: inline-block;
+    font: 15px/2.6 "Platform-Font", sans-serif;
+    letter-spacing: -1px;
+    margin: 0;
+    padding: 0 1em;
+    position: relative;
+    text-align: center;
+    text-decoration: none !important;
+    word-spacing: normal;
+}

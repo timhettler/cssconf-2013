@@ -1,0 +1,141 @@
+@import "global-vars";
+@import "compass";
+@import "psd-to-css";
+
+
+@import "base";
+@import "fonts";
+@import "prism";
+@import "unimpress/module_unimpress";
+@import "buttons/module_buttons";
+
+.wrapper {
+  margin: 3em auto;
+  max-width: 960px;
+  text-align: center;
+}
+
+.code-example {
+  font-size: 20px;
+  text-transform: none;
+  letter-spacing: 0;
+  word-spacing: 0;
+}
+
+.unimpress-slide {
+  padding: 0 1em;
+}
+
+%flex-row {
+    @include flex();
+    @include flex-row();
+    @include flex-centered-y();
+    @include flex-centered-x();
+    width: 100%;
+
+    pre {
+        width: 99%;
+    }
+}
+
+.flex-row--2 {
+    @extend %flex-row;
+
+    .flex-item {
+        width: 50%;
+    }
+}
+
+.flex-row--3 {
+    @extend %flex-row;
+
+    .flex-item {
+        width: 33.3333%;
+    }
+}
+
+.centered {
+  text-align: center;
+}
+
+%nsg-large-text {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  letter-spacing: -0.04em;
+  word-spacing: -0.05em;
+}
+
+.slide-title {
+  @extend %nsg-large-text;
+  color: $text-color--headline;
+  line-height: 0.9;
+
+  b {
+    color: $text-color--body;
+    font-weight: normal;
+  }
+}
+
+.slide-title--sub {
+  @extend %nsg-large-text;
+  color: $text-color--body;
+  display: block;
+  line-height: 1;
+  font-size: 75%;
+}
+
+.slide-title--main {
+  @extend .slide-title;
+  font-size: 120px;
+}
+
+.button-table {
+  margin: 1.5em 0;
+  width: 100%;
+  font-size: 60%;
+
+  td, th {
+    text-align: center;
+    width: 33%;
+  }
+
+  button {
+    @include transform-origin(50%, 0);
+  }
+}
+
+.the-button {
+  margin: 1.5em 0;
+
+  &:button {
+    @include transform-origin(50%, 0);
+  }
+}
+
+.small-text {
+  font-size: 50%;
+}
+
+.medium-text {
+  font-size: 75%;
+}
+
+%gradient-example {
+  margin: 0.25em auto 0;
+  height: 300px;
+  width: 300px;
+}
+
+.simple-gradient{
+  @extend %gradient-example;
+  @include background-image(photoshop-gradient-overlay(#fff));
+}
+
+.complex-gradient{
+  @extend %gradient-example;
+  @include background-image(photoshop-gradient-overlay(#fff, normal, 75%, 0deg, 50%, ( red, orange, yellow, green, blue, violet ), ( 0%, 20%, 40%, 60%, 80%, 100% )));
+}
+
+
+
+

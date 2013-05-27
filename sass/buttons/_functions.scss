@@ -1,0 +1,30 @@
+@function get-button-text-color($color) {
+
+    $color-type: get-button-color-type($color);
+
+    @if $color-type == "dark" {
+        @return #fff;
+    } @else {
+        @return #333;
+    }
+}
+
+@function get-button-text-shadow-color($color) {
+
+    $color-type: get-button-color-type($color);
+
+    @if $color-type == "dark" {
+        @return #333;
+    } @else {
+        @return #fff;
+    }
+}
+
+@function get-button-color-type($color) {
+    @return if( lightness($color) < 50, "dark", "light" );
+}
+
+@function get-button-hover-color($color) {
+    $color-adjust: if(get-button-color-type($color) == "dark", 5, -5);
+    @return adjust-color($color, $lightness: $color-adjust);
+}

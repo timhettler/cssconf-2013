@@ -1,0 +1,28 @@
+@function inner-bevel ($bg-color,
+                                 $direction: up,
+                                 $size: 0,
+                                 $soften: 0,
+                                 $angle: 90,
+                                 $altitude: 30,
+                                 $highlight-blend: screen,
+                                 $highlight-color: #fff,
+                                 $highlight-opacity:0.75,
+                                 $shadow-blend: multiply,
+                                 $shadow-color: #000,
+                                 $shadow-opacity:0.75
+                                ) {
+
+    $highlight-offset-modifier: if(unquote($direction) == up, 1, -1);
+    $highlight-offset-x: get-horizontal-offset($angle, 1px) * $highlight-offset-modifier;
+    $highlight-offset-y: get-vertical-offset($angle, 1px) * $highlight-offset-modifier;
+
+    $shadow-offset-modifier: if(unquote($direction) == up, -1, 1);
+    $shadow-offset-x: get-horizontal-offset($angle, 1px) * $shadow-offset-modifier;
+    $shadow-offset-y: get-vertical-offset($angle, 1px) * $shadow-offset-modifier;
+
+    @return inset $highlight-offset-x $highlight-offset-y $soften $size photoshop-blend($highlight-blend, $bg-color, $highlight-color, $highlight-opacity),
+            inset $shadow-offset-x $shadow-offset-y $soften $size photoshop-blend($shadow-blend, $bg-color, $shadow-color, $shadow-opacity);
+}
+
+
+

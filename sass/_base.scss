@@ -1,0 +1,44 @@
+@import "normalize";
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  @extend %nsg-large-text;
+  background-color: $background-color;
+  color: $text-color--body;
+  font-family: "Marketing-Font";
+  font-size: 70px;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+strong, b {
+  color: $text-color--headline;
+}
+
+p {
+  margin: 0 0 1em 0;
+}
+
+ul, ol {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+li {
+  margin-bottom: 0.5em;
+}
+
+img {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+code {
+  font-family: "SourceCodePro", Consolas, monospace !important;
+  text-transform: none !important;
+}

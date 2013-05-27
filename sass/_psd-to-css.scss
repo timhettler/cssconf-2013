@@ -1,0 +1,116 @@
+@import "photoshop/blend-modes";
+@import "photoshop/shadows";
+@import "photoshop/bevel";
+@import "photoshop/gradient-overlay";
+
+@function blend($mode, $foreground, $background) {
+
+    $mode: unquote($mode);
+    $blended-color: nil;
+
+    @if $mode == normal {
+        $blended-color: blend-normal($foreground, $background);
+    }
+
+    @if $mode == multiply {
+        $blended-color: blend-multiply($foreground, $background);
+    }
+
+    @if $mode == lighten {
+        $blended-color: blend-lighten($foreground, $background);
+    }
+
+    @if $mode == darken {
+        $blended-color: blend-darken($foreground, $background);
+    }
+
+    @if $mode == darkercolor {
+        $blended-color: blend-darkercolor($foreground, $background);
+    }
+
+    @if $mode == lightercolor {
+        $blended-color: blend-lightercolor($foreground, $background);
+    }
+
+    @if $mode == lineardodge {
+        $blended-color: blend-lineardodge($foreground, $background);
+    }
+
+    @if $mode == linearburn {
+        $blended-color: blend-linearburn($foreground, $background);
+    }
+
+    @if $mode == difference {
+        $blended-color: blend-difference($foreground, $background);
+    }
+
+    @if $mode == screen {
+        $blended-color: blend-screen($foreground, $background);
+    }
+
+    @if $mode == exclusion {
+        $blended-color: blend-exclusion($foreground, $background);
+    }
+
+    @if $mode == overlay {
+        $blended-color: blend-overlay($foreground, $background);
+    }
+
+    @if $mode == softlight {
+        $blended-color: blend-softlight($foreground, $background);
+    }
+
+    @if $mode == hardlight {
+        $blended-color: blend-hardlight($foreground, $background);
+    }
+
+    @if $mode == colordodge {
+        $blended-color: blend-colordodge($foreground, $background);
+    }
+
+    @if $mode == colorburn {
+        $blended-color: blend-colorburn($foreground, $background);
+    }
+
+    @if $mode == linearlight {
+        $blended-color: blend-linearlight($foreground, $background);
+    }
+
+    @if $mode == vividlight {
+        $blended-color: blend-vividlight($foreground, $background);
+    }
+
+    @if $mode == pinlight {
+        $blended-color: blend-pinlight($foreground, $background);
+    }
+
+    @if $mode == hardmix {
+        $blended-color: blend-hardmix($foreground, $background);
+    }
+
+    @if $mode == colorblend {
+        $blended-color: blend-colorblend($foreground, $background);
+    }
+
+    @if $mode == divide {
+        $blended-color: blend-divide($foreground, $background);
+    }
+
+    @if $mode == hue {
+        $blended-color: blend-hue($foreground, $background);
+    }
+
+    @if $mode == luminosity {
+        $blended-color: blend-luminosity($foreground, $background);
+    }
+
+    @if $mode == saturation {
+        $blended-color: blend-saturation($foreground, $background);
+    }
+
+    @if $mode == subtract {
+        $blended-color: blend-subtract($foreground, $background);
+    }
+
+    @return $blended-color;
+}

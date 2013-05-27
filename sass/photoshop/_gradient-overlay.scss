@@ -1,0 +1,57 @@
+@function photoshop-gradient-overlay(
+                            $bg-color,
+                            $blend: normal,
+                            $opacity: 100%,
+                            $angle: 90deg,
+                            $scale: 100%,
+                            $gradient-colors: (#000, #fff),
+                            $gradient-stops: (0%, 100%)
+                          ) {
+
+    $css-angle: convert-angle($angle);
+    $color-stops: ();
+
+    @for $i from 1 through length($gradient-colors) {
+        $blended-color: photoshop-blend($blend, $bg-color, nth($gradient-colors, $i), percentage-to-decimal($opacity));
+        $stop: join($blended-color, stop-scale(nth($gradient-stops, $i), $scale), space);
+        $color-stops: append($color-stops, $stop, comma);
+    }
+    @return linear-gradient($css-angle, $color-stops);
+}
+
+@function stop-scale($stop, $scale) {
+    $stop: percentage-to-decimal($stop);
+    $new-stop: 0;
+    $scale: percentage-to-decimal($scale);
+
+    @return $scale * $stop - (0.5 * ($scale - 1));
+}
+
+@function percentage-to-decimal($percentage) {
+    @if unit($percentage) == '%' {
+        $percentage: $percentage/100%;
+    }
+    @return $percentage;
+}
+
+@function convert-angle($angle) {
+    @if $angle == 0 {
+        @return left;
+    } @else if $angle == 45 {
+        @return left bottom;
+    } @else if $angle == 90 {
+        @return bottom;
+    } @else if $angle == 135 {
+        @return right bottom;
+    } @else if $angle == 180 {
+        @return right;
+    } @else if $angle == -135 {
+        @return right top;
+    } @else if $angle == -90 {
+        @return top;
+    } @else if $angle == -45 {
+        @return left top;
+    } @else {
+        @return $angle - 90deg;
+    }
+}

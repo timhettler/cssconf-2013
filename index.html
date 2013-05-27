@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Sweating the Small Stuff</title>
+  <link rel="stylesheet" href="stylesheets/style.css">
+</head>
+<body>
+  <article>
+    <section class="slide-section">
+      <h1 class="slide-title--main">
+        Sweating the Small&nbsp;Stuff:
+        <span class="slide-title--sub">Recreating Subtle Design Details Using&nbsp;Sass</span>
+      </h1>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="centered">
+        <p class="slide-title">@timhettler</p>
+        <p><b>Open Standards Developer</b></br>at R/GA in NYC</p>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title centered">I'm going to talk about this button<br/>for the next 20 minutes</p>
+      <div class="centered the-button">
+        <button class="button-orange">FIND OUT MORE</button>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title centered">Designers created this button<br/>in Photoshop:</p>
+      <table class="button-table">
+          <thead>
+            <th scope="col">Normal State</th>
+            <th scope="col">Active State</th>
+          </thead>
+          <tbody>
+            <tr>
+                <td><button class="button-orange">FIND OUT MORE</button></td>
+                <td><button class="button-orange is-active">FIND OUT MORE</button></td>
+            </tr>
+          </tbody>
+      </table>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Straightforward conversion to CSS?</p>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <ol>
+            <li>&check; Border Radius</li>
+            <li>&check; Box Shadow</li>
+            <li>&check; Linear Gradient</li>
+            <li>&check; Text Shadow</li>
+          </ol>
+        </div>
+        <div class="flex-item centered">
+          <button class="button-orange">FIND OUT MORE</button>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title centered">This is what the devs delivered:</p>
+      <table class="button-table">
+          <thead>
+            <th scope="col">Normal State</th>
+            <th scope="col">Active State</th>
+          </thead>
+          <tbody>
+            <tr>
+                <td><button class="button-crap">FIND OUT MORE</button></td>
+                <td><button class="button-crap is-active">FIND OUT MORE</button></td>
+            </tr>
+          </tbody>
+      </table>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p><b>Designers:</b><br/>The Drop Shadow is at a 90° angle with a distance of&nbsp;1px.</p>
+      <p><b>Developers:</b><br/>So&hellip; what is the x- and y-offset?</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p><b>Designers:</b><br/>The Gradient Overlay uses the multiply blend&nbsp;mode.</p>
+      <p><b>Developers:</b><br/>What the &amp;%$^ is a blend&nbsp;mode?</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div>
+        <p class="slide-title">What we've got here<br/><b>is a failure to communicate</b></p>
+
+        <p><b>Designers</b> &amp; <b>developers</b><br/>aren't speaking the same language</p>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Traditional process:</div>
+      <figure>
+        <img src="images/button-styleguide.png" alt=""/>
+      </figure>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Lots of failure points in the traditional&nbsp;process</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p>We can <b>automate</b> this translation</p>
+      <p>Preprocessors are the <b>rosetta stone</b> between designers &amp; developers</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p>Let's rebuild our button using<br/><b>Sass + Compass</b></p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <h1 class="slide-title">Building a base</h1>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Button Prototype Placeholder</div>
+      <pre class="code-example"><code class="language-scss">%button {
+  @include box-sizing('border-box');
+  @include user-select('none');
+  -webkit-touch-callout: none;
+  background-clip: padding-box;
+  border: 0;
+  border-radius: 0.2em;
+  cursor: pointer;
+  display: inline-block;
+  font: 100%/2.6 "Trade Gothic LT Std", sans-serif;
+  letter-spacing: -1px;
+  margin: 0;
+  padding: 0 1em;
+  position: relative;
+  text-align: center;
+  text-decoration: none !important;
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.button-orange {
+  @extend %button;
+  background-color: #fa5400;
+}
+
+.button-blue {
+  @extend %button;
+  background-color: #00a4e4;
+}</code></pre>
+          <pre class="code-example"><code class="language-css">.button-orange, .button-blue {
+  &hellip;
+}
+
+.button-orange {
+  background-color: #fa5400;
+}
+
+.button-blue {
+  background-color: #00a4e4;
+}</code></pre>
+        </div>
+        <div class="flex-item centered">
+          <div><button class="button-base-orange">FIND OUT MORE</button></div>
+          <div style="margin-top: 3em;"><button class="button-base-blue">FIND OUT MORE</button></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title centered">Determining Text Color</div>
+      <table class="button-table">
+          <thead>
+            <th scope="col">Dark Buttons</th>
+            <th scope="col">Light Buttons</th>
+          </thead>
+          <tbody>
+            <tr>
+                <td><button class="button-dark">FIND OUT MORE</button></td>
+                <td><button class="button-light">FIND OUT MORE</button></td>
+            </tr>
+          </tbody>
+      </table>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Built-in Sass functions<br/>to compare color lightness</p>
+      <pre class="code-example"><code class="language-scss">@function get-button-color( $color ) {
+
+  @return if( lightness( $color ) &gt; 50, #333, #fff );
+
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <p class="slide-title">Text-color gets set programatically:</p>
+    <div class="flex-row--2">
+      <div class="flex-item">
+        <pre class="code-example" data-line="4,10"><code class="language-scss">.dark-button {
+  @extend %button;
+  background-color: #333;
+  color: get-button-color(#333);
+}
+
+.light-button {
+  @extend %button;
+  background-color: #ffd204;
+  color: get-button-color(#ffd204);
+}</code></pre>
+      </div><div class="flex-item">
+        <pre class="code-example" data-line="4,10"><code class="language-css">.dark-button {
+  &hellip;
+  background-color: #333;
+  color: #fff;
+}
+
+.light-button {
+  &hellip;
+  background-color: #ffd204;
+  color: #333;
+}</code></pre>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p>Sass allows us to<br/><strong>abstract design logic</strong></p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <h1 class="slide-title">Drop Shadow to<br/><b><code>box-shadow()</code></b></h1>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Box-Shadow CSS Syntax:</p>
+      <p class="small-text"><code>offset-x offset-y (blur-radius) (spread-radius) (color) (inset)</code></p>
+      <p class="small-text"><code class="language-css">box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.25);</code></p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Photoshop Drop Shadow:</div>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <ul class="medium-text">
+            <li>Color</li>
+            <li>Opacity</li>
+            <li>Angle</li>
+            <li>Distance</li>
+            <li>Spread</li>
+            <li>Size</li>
+          </ul>
+        </div>
+        <div class="flex-item">
+          <figure>
+            <img src="images/drop-shadow.png" alt="">
+          </figure>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title centered">Calculating the missing sides of our&nbsp;triangle:<br/><b>SOHCAHTOA</b></p>
+      <figure>
+        <img src="images/sohcahtoa.png" alt="">
+      </figure>
+      <pre class="code-example"><code class="language-scss">$x-offset: round( cos( $angle ) * $distance )
+$y-offset: round( sin( $angle ) * $distance )</code></pre>
+
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <pre class="code-example"><code class="language-scss">
+@function photoshop-shadow( $angle: 120, $distance: 0, $spread: 0, $size: 0, $color: #000, $inner: false ) {
+
+  $x-offset: round( cos( $angle  * $distance );
+  $y-offset: round( sin( $angle ) * $distance );
+  $css-spread: $size * ( $spread/100 );
+  $blur: $size - $css-spread;
+  $inset: if( $inner != false, 'inset', '' );
+
+  @return ( $x-offset $y-offset $blur $css-spread $color unquote($inset) );
+}</code></pre>
+    <p class="small-text">github.com/heygrady/compass-photoshop-drop-shadow</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Adding <b><code>box-shadow()</code></b> to our button</div>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.button {
+  &hellip;
+  box-shadow: photoshop-drop-shadow(
+    90deg, 1px, 0, 1px, rgba( #000, 0.25 )
+  );
+
+  &:active {
+    box-shadow: photoshop-inner-shadow(
+      90deg, 1px, 0, 4px, rgba( #000, 0.35 )
+    );
+  }
+}
+          </code></pre>
+        </div>
+        <div class="flex-item">
+          <figure>
+            <img src="images/drop-shadow.png" alt="">
+          </figure>
+        </div>
+      </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-css">.button {
+  &hellip;
+  box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.button:active {
+  box-shadow: 0px 1px 4px 0px rgba(0, 0, 0, 0.35) inset;
+}</code></pre>
+        </div>
+        <div class="flex-item centered">
+          <div class="centered"><button class="button-drop-shadow">FIND OUT MORE</button></div>
+          <div class="centered" style="margin-top: 3em"><button class="button-drop-shadow is-active">FIND OUT MORE</button></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title"><code>text-shadow()</code></div>
+      <pre class="code-example"><code class="language-scss">@function photoshop-text-shadow( $angle: 120deg, $distance: 0, $spread: 0, $size: 0, $color: #000 ) {
+
+  @if $spread > 0 {
+    @warn "spread has no effect for text shadows";
+  }
+
+  $shadow: photoshop-shadow( $angle, $distance, $spread, $size, $color );
+
+  @return ( nth( $shadow, 1 ) nth( $shadow, 2 ) nth( $shadow, 3 ) nth( $shadow, 5 ) );
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Adding <b><code>text-shadow()</code></b> to our button</div>
+        <div class="flex-row--2">
+          <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.button {
+  &hellip;
+  text-shadow: photoshop-text-shadow(
+    -90deg, 1px, 0, 0, rgba( #000, 0.4 )
+  );
+
+  &:active {
+    text-shadow: photoshop-text-shadow(
+      90deg, 1px, 0, 0, rgba( #000, 0.4 )
+    );
+  }
+}</code></pre>
+          </div>
+          <div class="flex-item">
+            <figure>
+              <img src="images/text-shadow.png" alt="">
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-css">.button {
+  &hellip;
+  text-shadow: 0px -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.button:active {
+  text-shadow: 0px 1px 0 rgba(0, 0, 0, 0.4);
+}</code></pre>
+        </div>
+        <div class="flex-item centered">
+          <div class="centered"><button class="button-text-shadow">FIND OUT MORE</button></div>
+          <div class="centered" style="margin-top: 3em"><button class="button-text-shadow is-active">FIND OUT MORE</button></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <h1 class="slide-title">Gradient Overlay to <b><code>linear-gradient()</code></b></h1>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Linear Gradient CSS Syntax</p>
+      <p class="medium-text"><code>[angle | keyword], color-stop (, color-stop)</code></p>
+      <p class="small-text"><code class="language-scss">linear-gradient( top, #000 0%, #fff 100% )</code></p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Photoshop Gradient Overlay:</p>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <ul class="medium-text">
+            <li>Color</li>
+            <li>Opacity</li>
+            <li>Gradient</li>
+            <li>Angle</li>
+            <li>Scale</li>
+          </ul>
+        </div>
+        <div class="flex-item">
+          <figure>
+            <img src="images/gradient-overlay.png" alt="">
+          </figure>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <p class="slide-title">Angle</p>
+          <p>Vendor-prefixed:<br/><code>0deg</code> = <b>East</b></p>
+          <p>Un-prefixed:<br/><code>0deg</code> = <b>North</b></p>
+        </div>
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">@function convert-angle($angle) {
+    @if $angle == 0 {
+        @return left;
+    } @else if $angle == 45 {
+        @return left bottom;
+    } @else if $angle == 90 {
+        @return bottom;
+    } @else if $angle == 135 {
+        @return right bottom;
+    &hellip;
+    } @else {
+        @return $angle - 90deg;
+    }
+}
+
+$css-direction: convert-angle( 90deg );  // bottom
+$css-direction: convert-angle( 140deg ); // 50deg</code></pre>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Scale</div>
+      <pre class="code-example" data-line="6"><code class="language-scss">@function stop-scale( $stop, $scale ) {
+    $stop: percentage-to-decimal( $stop );
+    $new-stop: 0;
+    $scale: percentage-to-decimal( $scale );
+
+    @return $scale * $stop - ( 0.5 * ( $scale - 1 ) );
+}
+
+$stop1: stop-scale( 0%, 100% );   // 0%
+$stop2: stop-scale( 100%, 100% ); // 100%
+
+$stop1: stop-scale( 0%, 150% );   // -25%
+$stop2: stop-scale( 100%, 150% ); // 125%
+
+$stop1: stop-scale( 0%, 50% );    // 25%
+$stop2: stop-scale( 100%, 50% );  // 75%</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Creating the CSS Syntax</div>
+      <div>
+        <pre class="code-example"><code class="language-scss">&hellip;
+$gradient-colors: ( #000, #fff );
+$gradient-stops: ( 0%, 100% );
+$scale: 100%;
+$color-stops: ();
+
+@for $i from 1 through length( $gradient-colors ) {
+
+  $stop: join( nth( $gradient-colors, $i ), stop-scale( nth( $gradient-stops, $i ), $scale ), space );
+  $color-stops: append($color-stops, $stop, comma);
+
+}
+
+@return linear-gradient($css-direction, $color-stops);</code></pre>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Works for simple gradients:</div>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.simple-gradient {
+  @include background-image(
+    photoshop-gradient-overlay(
+      100%, 90deg, 100%, ( #000, #fff ), ( 0%, 100% )
+    )
+  );
+}</code></pre>
+          <pre class="code-example"><code class="language-css">.simple-gradient {
+  background-image: -webkit-linear-gradient(
+    bottom, #000000 0%, #ffffff 100%
+  );
+  &hellip;
+}</code></pre>
+        </div>
+        <div class="flex-item">
+          <img src="images/gradient-simple.png" alt="">
+          <div class="simple-gradient"></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Or if your designer is on LSD:</div>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.complex-gradient {
+  @include background-image(
+    photoshop-gradient-overlay(
+      75%, 0deg, 50%, ( red, orange, yellow, green, blue, violet ), ( 0%, 20%, 40%, 60%, 80%, 100% )
+    )
+  );
+}</code></pre>
+          <pre class="code-example"><code class="language-css">.complex-gradient {
+  background-image: -webkit-linear-gradient(
+    left, rgba(255, 0, 0, 0.75) 25%, rgba(255, 165, 0, 0.75) 35%, rgba(255, 255, 0, 0.75) 45%, rgba(0, 128, 0, 0.75) 55.0%, rgba(0, 0, 255, 0.75) 65%, rgba(238, 130, 238, 0.75) 75%
+  );
+  &hellip;
+}</code></pre>
+        </div>
+        <div class="flex-item">
+          <img src="images/gradient-complex.png" alt="">
+          <div class="complex-gradient"></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Adding <b><code>linear-gradient()</code></b> to our&nbsp;button</div>
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.button {
+  &hellip;
+  @include background-image(
+    photoshop-gradient-overlay(
+      50%, 90deg, 100%, ( #000, #fff ), ( 0%, 100% )
+    )
+  );
+
+  &:hover {
+    @include background-image(
+      photoshop-gradient-overlay(
+        50%, 90deg, 100%, ( #000, #fff ), ( 0%, 100% )
+      )
+    );
+  }
+}</code></pre>
+        </div>
+        <div class="flex-item">
+          <figure>
+            <img src="images/gradient-overlay.png" alt="">
+          </figure>
+        </div>
+      </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.button {
+  &hellip;
+  -webkit-linear-gradient(
+    bottom,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}
+
+.button:active {
+  -webkit-linear-gradient(
+    top,
+    rgba(0, 0, 0, 0.5) 0%,
+    rgba(255, 255, 255, 0.5) 100%
+  );
+}</code></pre>
+        </div>
+        <div class="flex-item centered">
+          <div class="centered"><button class="button-normal">FIND OUT MORE</button></div>
+          <div class="centered" style="margin-top: 3em"><button class="button-normal is-active">FIND OUT MORE</button></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <figure>
+        <img src="images/blend-mode.png" alt="">
+      </figure>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <h1 class="slide-title">Blend Modes</h1>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item"><pre class="code-example"><code class="language-scss">@function blend--normal($bg, $fg) {
+  @return $fg;
+}
+
+@function blend--multiply($bg, $fg) {
+  @return $fg * $bg / 255;
+}
+
+@function blend--overlay($bg, $fg) {
+  @if ($bg < 128) {
+    @return 2 * $fg * $bg / 255;
+  } @else {
+    @return 255 - 2 * (255 - $fg) * (255 - $bg) / 255);
+  }
+}</code></pre></div>
+        <div class="flex-item centered">
+          <div><button class="button-normal">FIND OUT MORE</button></div>
+          <div style="margin-top: 2.5em;"><button class="button-multiply">FIND OUT MORE</button></div>
+          <div style="margin-top: 2.5em;"><button class="button-overlay">FIND OUT MORE</button></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">SASS Blend Mode Limitations</p>
+      <p>Must know foreground- and background-color</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Update <code>photoshop-gradient-overlay()</code></div>
+      <div>
+        <pre class="code-example" data-line="2,6"><code class="language-scss">&hellip;
+$background-color: #fa5400;
+
+@for $i from 1 through length( $gradient-colors ) {
+
+  $blended-color: photoshop-blend( 'overlay', $background-color, nth( $gradient-colors, $i ), $opacity );
+  $stop: join( $blended-color, stop-scale( nth( $gradient-stops, $i ), $scale ), space );
+  $color-stops: append( $color-stops, $stop, comma );
+
+}
+
+@return linear-gradient($css-direction, $color-stops);</code></pre>
+      </div>
+      <p class="small-text">github.com/timhettler/compass-photoshop-gradient-overlay</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="flex-row--2">
+        <div class="flex-item">
+          <pre class="code-example"><code class="language-scss">.button {
+  &hellip;
+  -webkit-linear-gradient(
+    bottom, rgba(245, 0, 0, 0.5) 0%, rgba(255, 168, 0, 0.5) 100%
+  );
+}
+
+.button:active {
+  -webkit-linear-gradient(
+    top, rgba(245, 0, 0, 0.5) 0%, rgba(255, 168, 0, 0.5) 100%
+  );
+}</code></pre>
+        </div>
+        <div class="flex-item centered">
+          <div class="centered"><button class="button-overlay">FIND OUT MORE</button></div>
+          <div class="centered" style="margin-top: 3em"><button class="button-overlay is-active">FIND OUT MORE</button></div>
+        </div>
+      </div>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <h1 class="slide-title">Optimizing Our&nbsp;Code</h1>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Lots of redundancy</div>
+      <pre class="code-example"><code class="language-scss">.button {
+  @extend %button;
+  @include background-image(photoshop-gradient-overlay(#fa5400, 'overlay', 50%, 90deg));
+  background-color: #fa5400;
+  box-shadow: photoshop-drop-shadow(90deg, 1px, 0, 1px, rgba(#000, 0.25));
+  color: get-button-color(#fa5400);
+  text-shadow: photoshop-text-shadow(-90deg, 1px, 0, 0, rgba(get-shadow-color(#fa5400), 0.4));
+
+  &amp;:active {
+    @include background-image(photoshop-gradient-overlay(#fa5400, 'overlay', 50%, -90deg));
+    box-shadow: photoshop-inner-shadow(90deg, 1px, 0, 4px, rgba(#000, 0.35));
+    text-shadow: photoshop-text-shadow(90deg, 1px, 0, 0, rgba(get-shadow-color(#fa5400), 0.4));
+  }
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title">Making our code modular</div>
+      <pre class="code-example" data-line="1"><code class="language-scss">@mixin button($bg-color) {
+  $text-color: get-button-color($bg-color);
+  $shadow-color: get-shadow-color($bg-color);
+  @extend %button;
+  @include background-image(photoshop-gradient-overlay($bg-color, 'overlay', 50%, 90deg));
+  background-color: $bg-color;
+  box-shadow: photoshop-drop-shadow(90deg, 1px, 0, 1px, rgba(#000, 0.25));
+  color: $text-color;
+  text-shadow: photoshop-text-shadow(-90deg, 1px, 0, 0, rgba($shadow-color, 0.4));
+
+  &amp;:active {
+    @include background-image(photoshop-gradient-overlay($bg-color, 'overlay', 50%, -90deg));
+    box-shadow: photoshop-inner-shadow(90deg, 1px, 0, 4px, rgba(#000, 0.35));
+    text-shadow: photoshop-text-shadow(90deg, 1px, 0, 0, rgba($shadow-color, 0.4));
+  }
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title centered">We can style a button with 1 line of&nbsp;code</div>
+      <div class="button-wrapper"><button class="button-orange">FIND OUT MORE</button></div>
+      <pre class="code-example"><code class="language-scss">.button-orange {
+  @include button(#fa5400);
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title centered">Design details applied automatically</div>
+      <div class="button-wrapper"><button class="button-yellow">FIND OUT MORE</button></div>
+      <pre class="code-example"><code class="language-scss">.button-yellow {
+  @include button(#ffd204);
+}</code></pre>
+    </section>
+  </article>
+    <article>
+      <section class="slide-section">
+        <div class="slide-title centered">So creating new buttons is&nbsp;trivial</div>
+        <div class="button-wrapper"><button class="button-hotpink">FIND OUT MORE</button></div>
+        <pre class="code-example"><code class="language-scss">.button-hotpink {
+  @include button(hotpink);
+}</code></pre>
+      </section>
+    </article>
+  <article>
+    <section class="slide-section">
+      <div class="slide-title centered">Which is pretty #bada55</div>
+      <div class="button-wrapper"><button class="button-bada55">FIND OUT MORE</button></div>
+      <pre class="code-example"><code class="language-scss">.button-bada55 {
+  @include button(#bada55);
+}</code></pre>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p class="slide-title">Sass allows us to build elements with the same language used to design&nbsp;them</p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <p>Sass allows us to<br/>
+      <b>abstract design logic</b></p>
+
+      <p>Stop building styleguides,<br/>
+      <b>start building systems</b></p>
+    </section>
+  </article>
+  <article>
+    <section class="slide-section">
+      <div class="centered"><button class="button-orange">THANKS!</button></div>
+      <div class="centered" style="margin-top: 3em">@timhettler</div>
+    </section>
+  </article>
+  <script src="javascripts/libs/jquery.js"></script>
+  <script src="javascripts/libs/prism.js"></script>
+  <script src="javascripts/jquery.unimpress.js"></script>
+  <script>
+    $(document).ready(function () {
+      var slideshow = $['unimpress']({
+        start: parseInt(window.location.hash.replace('#!/',''),10) || 0
+      });
+    });
+  </script>
+</body>
+</html>
+

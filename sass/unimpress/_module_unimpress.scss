@@ -1,0 +1,36 @@
+@import "variables";
+@import "mixins";
+
+html, body {
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+@include prefixed-class('slide') {
+    @include box-sizing('border-box');
+    @include flex();
+    @include flex-column();
+    @include flex-centered-y();
+    height: 100%;
+    left: 0;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    -webkit-transition:  400ms;
+    -moz-transition: top 400ms;
+    -o-transition: top 400ms;
+    -ms-transition: top 400ms;
+    transition: top 400ms;
+}
+
+@include prefixed-class('slide--upcoming') {
+    top: 100%;
+}
+
+@include prefixed-class('slide--past') {
+    top: -100%;
+}

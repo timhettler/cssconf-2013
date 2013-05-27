@@ -1,0 +1,297 @@
+// Main user-facing function
+// ---------------------------------
+
+@function blend($mode, $color--background-layer, $color--active-layer, $opacity: 100) {
+    $mode: unquote($mode);
+
+    $red--background-layer: convert-to-standard-number(red($color--background-layer));
+    $green--background-layer: convert-to-standard-number(green($color--background-layer));
+    $blue--background-layer: convert-to-standard-number(blue($color--background-layer));
+
+    $red--active-layer: convert-to-standard-number(red($color--active-layer));
+    $green--active-layer: convert-to-standard-number(green($color--active-layer));
+    $blue--active-layer: convert-to-standard-number(blue($color--active-layer));
+
+    $red--blended: nil;
+    $green--blended: nil;
+    $blue--blended: nil;
+
+    @if $mode == normal {
+
+        $red--blended: blend--normal($red--background-layer, $red--active-layer);
+        $green--blended: blend--normal($green--background-layer, $green--active-layer);
+        $blue--blended: blend--normal($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == darken {
+
+        $red--blended: blend--darken($red--background-layer, $red--active-layer);
+        $green--blended: blend--darken($green--background-layer, $green--active-layer);
+        $blue--blended: blend--darken($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == multiply {
+
+        $red--blended: blend--multiply($red--background-layer, $red--active-layer);
+        $green--blended: blend--multiply($green--background-layer, $green--active-layer);
+        $blue--blended: blend--multiply($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == color-burn {
+
+        $red--blended: blend--color-burn($red--background-layer, $red--active-layer);
+        $green--blended: blend--color-burn($green--background-layer, $green--active-layer);
+        $blue--blended: blend--color-burn($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == linear-burn {
+
+        $red--blended: blend--linear-burn($red--background-layer, $red--active-layer);
+        $green--blended: blend--linear-burn($green--background-layer, $green--active-layer);
+        $blue--blended: blend--linear-burn($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == lighten {
+
+        $red--blended: blend--lighten($red--background-layer, $red--active-layer);
+        $green--blended: blend--lighten($green--background-layer, $green--active-layer);
+        $blue--blended: blend--lighten($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == screen {
+
+        $red--blended: blend--screen($red--background-layer, $red--active-layer);
+        $green--blended: blend--screen($green--background-layer, $green--active-layer);
+        $blue--blended: blend--screen($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == color-dodge {
+
+        $red--blended: blend--color-dodge($red--background-layer, $red--active-layer);
+        $green--blended: blend--color-dodge($green--background-layer, $green--active-layer);
+        $blue--blended: blend--color-dodge($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == linear-dodge {
+
+        $red--blended: blend--linear-dodge($red--background-layer, $red--active-layer);
+        $green--blended: blend--linear-dodge($green--background-layer, $green--active-layer);
+        $blue--blended: blend--linear-dodge($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == overlay {
+
+        $red--blended: blend--overlay($red--background-layer, $red--active-layer);
+        $green--blended: blend--overlay($green--background-layer, $green--active-layer);
+        $blue--blended: blend--overlay($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == soft-light {
+
+        $red--blended: blend--soft-light($red--background-layer, $red--active-layer);
+        $green--blended: blend--soft-light($green--background-layer, $green--active-layer);
+        $blue--blended: blend--soft-light($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == hard-light {
+
+        $red--blended: blend--hard-light($red--background-layer, $red--active-layer);
+        $green--blended: blend--hard-light($green--background-layer, $green--active-layer);
+        $blue--blended: blend--hard-light($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == vivid-light {
+
+        $red--blended: blend--vivid-light($red--background-layer, $red--active-layer);
+        $green--blended: blend--vivid-light($green--background-layer, $green--active-layer);
+        $blue--blended: blend--vivid-light($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == linear-light {
+
+        $red--blended: blend--linear-light($red--background-layer, $red--active-layer);
+        $green--blended: blend--linear-light($green--background-layer, $green--active-layer);
+        $blue--blended: blend--linear-light($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == pin-light {
+
+        $red--blended: blend--pin-light($red--background-layer, $red--active-layer);
+        $green--blended: blend--pin-light($green--background-layer, $green--active-layer);
+        $blue--blended: blend--pin-light($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == difference {
+
+        $red--blended: blend--difference($red--background-layer, $red--active-layer);
+        $green--blended: blend--difference($green--background-layer, $green--active-layer);
+        $blue--blended: blend--difference($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == exclusion {
+
+        $red--blended: blend--exclusion($red--background-layer, $red--active-layer);
+        $green--blended: blend--exclusion($green--background-layer, $green--active-layer);
+        $blue--blended: blend--exclusion($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == subtract {
+
+        $red--blended: blend--subtract($red--background-layer, $red--active-layer);
+        $green--blended: blend--subtract($green--background-layer, $green--active-layer);
+        $blue--blended: blend--subtract($blue--background-layer, $blue--active-layer);
+
+    } @else if $mode == divide {
+
+        $red--blended: blend--divide($red--background-layer, $red--active-layer);
+        $green--blended: blend--divide($green--background-layer, $green--active-layer);
+        $blue--blended: blend--divide($blue--background-layer, $blue--active-layer);
+
+    }
+
+    @debug $mode;
+    @debug $red--blended, $green--blended, $blue--blended;
+    @debug "====";
+
+    @return rgba(
+                convert-to-channel-value($red--blended),
+                convert-to-channel-value($green--blended),
+                convert-to-channel-value($blue--blended),
+                $opacity
+            );
+}
+
+// Individual blend mode math
+// ---------------------------------
+
+@function blend--normal($color--background-layer, $color--active-layer) {
+    @return $color--active-layer;
+}
+
+@function blend--darken($color--background-layer, $color--active-layer) {
+    @return min($color--background-layer, $color--active-layer);
+}
+
+@function blend--multiply($color--background-layer, $color--active-layer) {
+    @return $color--background-layer * $color--active-layer;
+}
+
+@function blend--color-burn($color--background-layer, $color--active-layer) {
+    @return if(
+                $color--active-layer == 0,
+                $color--active-layer,
+                inversion(inversion($color--background-layer) / $color--active-layer)
+            );
+
+}
+
+@function blend--linear-burn($color--background-layer, $color--active-layer) {
+    @return inversion($color--active-layer + $color--background-layer);
+}
+
+@function blend--lighten($color--background-layer, $color--active-layer) {
+    @return max($color--background-layer, $color--active-layer);
+}
+
+@function blend--screen($color--background-layer, $color--active-layer) {
+    @return inversion(inversion($color--active-layer) * inversion($color--background-layer));
+}
+
+@function blend--color-dodge($color--background-layer, $color--active-layer) {
+    @return if(
+                $color--active-layer == 1,
+                $color--active-layer,
+                $color--background-layer / (inversion($color--active-layer))
+            );
+}
+
+@function blend--linear-dodge($color--background-layer, $color--active-layer) {
+    @return min(1, $color--active-layer + $color--background-layer);
+}
+
+@function blend--overlay($color--background-layer, $color--active-layer) {
+
+    @return if(
+                $color--background-layer > 0.5,
+                inversion(half-strength(inversion($color--active-layer) * inversion($color--background-layer))),
+                half-strength(blend--multiply($color--background-layer, $color--active-layer))
+            );
+
+}
+
+@function blend--soft-light($color--background-layer, $color--active-layer) {
+
+    @return if(
+                $color--active-layer > 0.5,
+                inversion(half-strength(inversion($color--active-layer) * inversion($color--background-layer))),
+                half-strength(blend--multiply($color--background-layer, $color--active-layer))
+            );
+}
+
+@function blend--hard-light($color--background-layer, $color--active-layer) {
+
+    @return if(
+                $color--active-layer > 0.5,
+                half-strength(blend--linear-dodge($color--background-layer, $color--active-layer)),
+                half-strength(blend--linear-burn($color--background-layer, $color--active-layer))
+            );
+}
+
+@function blend--vivid-light($color--background-layer, $color--active-layer) {
+
+    @return if(
+                $color--active-layer > 0.5,
+                half-strength(blend--color-dodge($color--background-layer, $color--active-layer)),
+                inversion(half-strength(if(
+                                            $color--active-layer == 0,
+                                            $color--active-layer,
+                                            inversion(inversion($color--background-layer) / $color--active-layer)
+                                        )
+                ))
+            );
+
+}
+
+@function blend--linear-light($color--background-layer, $color--active-layer) {
+
+    @return if(
+                $color--active-layer > 0.5,
+                half-strength(blend--linear-dodge($color--background-layer, $color--active-layer)),
+                half-strength(blend--linear-burn($color--background-layer, $color--active-layer))
+            );
+
+}
+
+@function blend--pin-light($color--background-layer, $color--active-layer) {
+    @return if(
+                $color--active-layer > 0.5,
+                half-strength(blend--lighten($color--background-layer, $color--active-layer)),
+                half-strength(blend--darken($color--background-layer, $color--active-layer))
+            );
+}
+
+@function blend--difference($color--background-layer, $color--active-layer) {
+    @return abs($color--background-layer - $color--active-layer);
+}
+
+@function blend--exclusion($color--background-layer, $color--active-layer) {
+    @return $color--background-layer + $color--active-layer - $color--background-layer * $color--active-layer / 0.5;
+}
+
+@function blend--subtract($color--background-layer, $color--active-layer) {
+    @return max(1, $color--background-layer - $color--active-layer);
+}
+
+@function blend--divide($color--background-layer, $color--active-layer) {
+    @return if(
+                $color--active-layer == 0,
+                $color--active-layer,
+                $color--background-layer / $color--active-layer
+            );
+}
+
+// Helper functions
+// ---------------------------------
+
+@function convert-to-standard-number($channel-value) {
+    @return $channel-value / 255;
+}
+
+@function convert-to-channel-value($standard-number) {
+    @return $standard-number * 255;
+}
+
+@function inversion($value) {
+    @return abs(1 - $value);
+}
+
+@function half-strength($value) {
+    @return if(
+                $value == 1,
+                $value / 2,
+                2 * $value
+            );
+}

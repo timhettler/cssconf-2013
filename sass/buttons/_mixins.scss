@@ -1,0 +1,60 @@
+@mixin blend-button($color--bg, $blend-mode) {
+    @extend %button;
+
+    @include button--coloring--default($color--bg, $blend-mode);
+    @include button--shading--default($color--bg);
+
+    &:hover,
+    &.is-hover {
+        @include button--coloring--hover($color--bg, $blend-mode);
+        @include button--shading--default(get-button-hover-color($color--bg));
+    }
+
+    &:active,
+    &:focus,
+    &.is-active {
+        @include button--coloring--active($color--bg, $blend-mode);
+        @include button--shading--active($color--bg);
+    }
+}
+
+@mixin button--coloring--default($color--bg, $blend-mode) {
+    $color--type: get-button-color-type($color--bg);
+    $color--text: get-button-text-color($color--bg);
+    $color--text-shadow: get-button-text-shadow-color($color--bg);
+
+    @if $color--type == "dark" {
+      -webkit-font-smoothing: antialiased;
+    }
+
+    @include background-image(photoshop-gradient-overlay($color--bg, $blend-mode, 50%));
+    color: $color--text !important;
+    background-color: $color--bg;
+    text-shadow: photoshop-text-shadow(-90deg, 1px, 0, 0, rgba($color--text-shadow, 0.4));
+}
+
+@mixin button--coloring--hover($color--bg, $blend-mode) {
+    $color--bg--hover: get-button-hover-color($color--bg);
+
+    @include background-image(photoshop-gradient-overlay($color--bg--hover, $blend-mode, 50%));
+    background-color: $color--bg--hover;
+}
+
+@mixin button--coloring--active($color--bg, $blend-mode) {
+    $color--text-shadow--hover: get-button-text-shadow-color($color--bg);
+
+    @include background-image(photoshop-gradient-overlay($color--bg, $blend-mode, 50%, -90deg));
+    background-color: $color--bg;
+    text-shadow: photoshop-text-shadow(90deg, 1px, 0, 0, rgba($color--text-shadow--hover, 0.4));
+
+}
+
+@mixin button--shading--default($color--bg) {
+    @include box-shadow(photoshop-drop-shadow($photoshop-global-light, 1px, 0, 1px, rgba(#000, 0.25)));
+}
+
+@mixin button--shading--active($color--bg) {
+    @include box-shadow(photoshop-inner-shadow($photoshop-global-light,1px,0,4px,rgba(#000, 0.35)));
+}
+
+

@@ -49,24 +49,6 @@
   </article>
   <article>
     <section class="slide-section">
-      <p class="slide-title">Straightforward conversion to CSS?</p>
-      <div class="flex-row--2">
-        <div class="flex-item">
-          <ol>
-            <li>&check; Border Radius</li>
-            <li>&check; Box Shadow</li>
-            <li>&check; Linear Gradient</li>
-            <li>&check; Text Shadow</li>
-          </ol>
-        </div>
-        <div class="flex-item centered">
-          <button class="button-orange">FIND OUT MORE</button>
-        </div>
-      </div>
-    </section>
-  </article>
-  <article>
-    <section class="slide-section">
       <p class="slide-title centered">This is what the devs delivered:</p>
       <table class="button-table">
           <thead>
@@ -97,8 +79,6 @@
   <article>
     <section class="slide-section">
       <div>
-        <p class="slide-title">What we've got here<br/><b>is a failure to communicate</b></p>
-
         <p><b>Designers</b> &amp; <b>developers</b><br/>aren't speaking the same language</p>
       </div>
     </section>
@@ -113,7 +93,7 @@
   </article>
   <article>
     <section class="slide-section">
-      <p class="slide-title">Lots of failure points in the traditional&nbsp;process</p>
+      <p>Lots of <b>failure points</b> in the traditional translation&nbsp;process</p>
     </section>
   </article>
   <article>
@@ -167,7 +147,7 @@
   @extend %button;
   background-color: #00a4e4;
 }</code></pre>
-          <pre class="code-example"><code class="language-css">.button-orange, .button-blue {
+          <pre class="code-example" data-line="1"><code class="language-css">.button-orange, .button-blue {
   &hellip;
 }
 
@@ -295,10 +275,9 @@ $y-offset: round( sin( $angle ) * $distance )</code></pre>
   </article>
   <article>
     <section class="slide-section">
-      <pre class="code-example"><code class="language-scss">
-@function photoshop-shadow( $angle: 120, $distance: 0, $spread: 0, $size: 0, $color: #000, $inner: false ) {
+      <pre class="code-example"><code class="language-scss">@function photoshop-shadow( $angle: 120, $distance: 0, $spread: 0, $size: 0, $color: #000, $inner: false ) {
 
-  $x-offset: round( cos( $angle  * $distance );
+  $x-offset: round( cos( $angle ) * $distance );
   $y-offset: round( sin( $angle ) * $distance );
   $css-spread: $size * ( $spread/100 );
   $blur: $size - $css-spread;
@@ -325,8 +304,7 @@ $y-offset: round( sin( $angle ) * $distance )</code></pre>
       90deg, 1px, 0, 4px, rgba( #000, 0.35 )
     );
   }
-}
-          </code></pre>
+}</code></pre>
         </div>
         <div class="flex-item">
           <figure>
@@ -485,9 +463,8 @@ $css-direction: convert-angle( 140deg ); // 50deg</code></pre>
   <article>
     <section class="slide-section">
       <div class="slide-title">Scale</div>
-      <pre class="code-example" data-line="6"><code class="language-scss">@function stop-scale( $stop, $scale ) {
+      <pre class="code-example" data-line="5"><code class="language-scss">@function stop-scale( $stop, $scale ) {
     $stop: percentage-to-decimal( $stop );
-    $new-stop: 0;
     $scale: percentage-to-decimal( $scale );
 
     @return $scale * $stop - ( 0.5 * ( $scale - 1 ) );
@@ -637,14 +614,10 @@ $color-stops: ();
   </article>
   <article>
     <section class="slide-section">
+      <div class="slide-title centered">Blend Modes</div>
       <figure>
         <img src="images/blend-mode.png" alt="">
       </figure>
-    </section>
-  </article>
-  <article>
-    <section class="slide-section">
-      <h1 class="slide-title">Blend Modes</h1>
     </section>
   </article>
   <article>
@@ -777,15 +750,6 @@ $background-color: #fa5400;
 }</code></pre>
     </section>
   </article>
-  <article>
-    <section class="slide-section">
-      <div class="slide-title centered">Design details applied automatically</div>
-      <div class="button-wrapper"><button class="button-yellow">FIND OUT MORE</button></div>
-      <pre class="code-example"><code class="language-scss">.button-yellow {
-  @include button(#ffd204);
-}</code></pre>
-    </section>
-  </article>
     <article>
       <section class="slide-section">
         <div class="slide-title centered">So creating new buttons is&nbsp;trivial</div>
@@ -802,20 +766,6 @@ $background-color: #fa5400;
       <pre class="code-example"><code class="language-scss">.button-bada55 {
   @include button(#bada55);
 }</code></pre>
-    </section>
-  </article>
-  <article>
-    <section class="slide-section">
-      <p class="slide-title">Sass allows us to build elements with the same language used to design&nbsp;them</p>
-    </section>
-  </article>
-  <article>
-    <section class="slide-section">
-      <p>Sass allows us to<br/>
-      <b>abstract design logic</b></p>
-
-      <p>Stop building styleguides,<br/>
-      <b>start building systems</b></p>
     </section>
   </article>
   <article>
